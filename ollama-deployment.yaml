@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ollama-worker-deployment
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: ollama-worker
+  template:
+    metadata:
+      labels:
+        app: ollama-worker
+    spec:
+      tolerations:
+        - key: nvidia.com/gpu
+          operator: Exists
+          effect: NoSchedule
+
+      containers:
+        - name: ollama
+          image: ollama/ollama:latest
+          ports:
+            - containerPort: 11434
+          volumeMounts:
+            - name: ollama-models
+              mountPath: /root/.ollama
+          resources:
+            limits:
+              nvidia.com/gpu: 1
+      volumes:
+        - name: ollama-models
+          persistentVolumeClaim:
+            claimName: ollama-models-pvc
+      initContainers:
+        - name: model-loader
+          image: ollama/ollama:latest
+          command:
+            - "/bin/sh"
+            - "-c"
+            - "ollama serve & sleep 10 && ollama pull deepseek-coder:1.5b && ollama run deepseek-coder:1.5b & sleep 5"
+          volumeMounts:
+            - name: ollama-models
+              mountPath: /root/.ollama
