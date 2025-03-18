@@ -66,6 +66,7 @@ This show us that the time slicing have done succefully, slicing our gpu into 4 
 
 Now, we have to apply all other services and deployment files, and then it done.
 
+
 ```
 kubectl apply -f ollama-pvc.yaml
 kubectl apply -f ollama-deployment.yaml
