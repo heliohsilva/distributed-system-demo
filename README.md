@@ -65,7 +65,6 @@ nvidia.com/gpu.sharing-strategy=time-slicing
 This show us that the time slicing have done succefully, slicing our gpu into 4 replicas, as defined in our configmap.yaml. If this configs does not appear for you immediately, wait few seconds and it should be work.
 
 Now, we have to apply all other services and deployment files, and then it done.
-
 ```
 kubectl apply -f ollama-pvc.yaml
 kubectl apply -f ollama-deployment.yaml
