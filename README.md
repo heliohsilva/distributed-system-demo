@@ -13,6 +13,7 @@ kubernetes locally. For this tutorial, I will use Minikube.
 
 Access the minikube docs at get started module and follow the steps to install it into your machine
 
+
 ```
 https://minikube.sigs.k8s.io/docs/start/?arch=%2Flinux%2Fx86-64%2Fstable%2Fbinary+download
 ```
